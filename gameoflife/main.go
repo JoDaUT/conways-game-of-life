@@ -59,20 +59,31 @@ var patterns = Patterns{
 	},
 }
 
-func main() {
-	rows := 60
-	cols := 60
-	var delay time.Duration = 50
-	gen := 1000
+type Config struct {
+	delay        time.Duration
+	gen          int
+	rows         int
+	cols         int
+	initialState []Point
+}
 
-	activeCells := patterns.GosperGliderGun
-	matrix := createWorld(rows, cols, activeCells)
-	temp := createWorld(rows, cols, []Point{})
-	for i := 0; i < gen; i++ {
-		updateState(matrix, temp, rows, cols)
-		time.Sleep(delay * time.Millisecond)
+func main() {
+
+	config := Config{
+		delay:        100 * time.Millisecond,
+		gen:          500,
+		cols:         50,
+		rows:         50,
+		initialState: patterns.GosperGliderGun,
+	}
+
+	matrix := createWorld(config.rows, config.cols, config.initialState)
+	temp := createWorld(config.rows, config.cols, []Point{})
+	for i := 0; i < config.gen; i++ {
+		updateState(matrix, temp, config.rows, config.cols)
+		time.Sleep(config.delay)
 		clearScreen()
-		displayWorld(rows, cols, delay, i, matrix)
+		displayWorld(config.rows, config.cols, config.delay, i, matrix)
 	}
 
 }
