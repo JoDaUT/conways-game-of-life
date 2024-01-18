@@ -7,19 +7,6 @@ import (
 	"time"
 )
 
-// type Patterns struct {
-// 	Blinker         []Point
-// 	Toad            []Point
-// 	Beacon          []Point
-// 	Glider          []Point
-// 	LWSS            []Point
-// 	Block           []Point
-// 	Beehive         []Point
-// 	Loaf            []Point
-// 	GosperGliderGun []Point
-// 	Random          []Point
-// }
-
 const (
 	BLINKER           = "Blinker"
 	TOAD              = "Toad"
@@ -85,8 +72,9 @@ func PatternFactory(pattern string, rows int, cols int) ([]Point, error) {
 	for k := range patterns {
 		patternKeys = append(patternKeys, k)
 	}
+	patternKeys = append(patternKeys, RANDOM)
 
-	if pattern == "Random" {
+	if pattern == RANDOM {
 		return generatePseudoRandomPattern(rows*cols, rows, cols), nil
 	}
 	if found, ok := patterns[pattern]; !ok {
