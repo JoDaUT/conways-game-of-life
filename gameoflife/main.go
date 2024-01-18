@@ -40,11 +40,11 @@ var (
 
 func main() {
 
-	flag.StringVar(&pattern, "pattern", "Random", "default=Random")
-	flag.IntVar(&delay, "delay", 100, "default=200")
-	flag.IntVar(&cols, "cols", 20, "default=20")
-	flag.IntVar(&rows, "rows", 20, "default=20")
-	flag.IntVar(&gen, "gen", 20, "default==200")
+	flag.StringVar(&pattern, "pattern", "random", "default=Random")
+	flag.IntVar(&delay, "delay", 100, "delay to move to the next gen")
+	flag.IntVar(&cols, "cols", 40, "number of colums of the matrix")
+	flag.IntVar(&rows, "rows", 40, "number of rows of the matrix")
+	flag.IntVar(&gen, "gen", 100, "number of generations before stopping the simulation")
 
 	flag.Parse()
 

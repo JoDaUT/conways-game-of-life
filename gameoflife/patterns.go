@@ -8,16 +8,16 @@ import (
 )
 
 const (
-	BLINKER           = "Blinker"
-	TOAD              = "Toad"
-	BEACON            = "Beacon"
-	GLIDER            = "Glider"
-	LWSS              = "LWSS"
-	BLOCK             = "Block"
-	BEEHIVE           = "Beehive"
-	LOAF              = "Loaf"
-	GOSPER_GLIDER_GUN = "GosperGliderGun"
-	RANDOM            = "Random"
+	BLINKER           = "blinker"
+	TOAD              = "toad"
+	BEACON            = "beacon"
+	GLIDER            = "glider"
+	LWSS              = "lwss"
+	BLOCK             = "block"
+	BEEHIVE           = "beehive"
+	LOAF              = "loaf"
+	GOSPER_GLIDER_GUN = "gosperGliderGun"
+	RANDOM            = "random"
 )
 
 var patterns = map[string][]Point{
