@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"os"
 	"time"
@@ -28,32 +29,40 @@ type Config struct {
 	initialState []Point
 }
 
+var (
+	delay        int
+	gen          int
+	cols         int
+	rows         int
+	pattern      string
+	initialState []Point
+)
+
 func main() {
 
-	pattern := GOSPER_GLIDER_GUN
+	flag.StringVar(&pattern, "pattern", "Random", "default=Random")
+	flag.IntVar(&delay, "delay", 100, "default=200")
+	flag.IntVar(&cols, "cols", 20, "default=20")
+	flag.IntVar(&rows, "rows", 20, "default=20")
+	flag.IntVar(&gen, "gen", 20, "default==200")
 
-	config := Config{
-		delay: 100 * time.Millisecond,
-		gen:   40,
-		cols:  50,
-		rows:  50,
-	}
+	flag.Parse()
 
-	activeCells, err := PatternFactory(pattern, config.rows, config.cols)
+	activeCells, err := PatternFactory(pattern, rows, cols)
 	if err != nil {
 		fmt.Println(fmt.Errorf("error: %w", err))
 		os.Exit(1)
 	}
 
-	config.initialState = activeCells
+	initialState = activeCells
 
-	matrix := createWorld(config.rows, config.cols, config.initialState)
-	temp := createWorld(config.rows, config.cols, []Point{})
-	for i := 0; i < config.gen; i++ {
-		updateState(matrix, temp, config.rows, config.cols)
-		time.Sleep(config.delay)
+	matrix := createWorld(rows, cols, initialState)
+	temp := createWorld(rows, cols, []Point{})
+	for i := 0; i < gen; i++ {
+		updateState(matrix, temp, rows, cols)
+		time.Sleep(time.Duration(delay) * time.Millisecond)
 		clearScreen()
-		displayWorld(config.rows, config.cols, config.delay, i, matrix)
+		displayWorld(rows, cols, time.Duration(delay)*time.Millisecond, i, matrix)
 	}
 
 }
