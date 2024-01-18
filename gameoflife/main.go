@@ -30,13 +30,13 @@ type Config struct {
 
 func main() {
 
-	pattern := "Random"
+	pattern := GOSPER_GLIDER_GUN
 
 	config := Config{
-		delay: 200 * time.Millisecond,
+		delay: 100 * time.Millisecond,
 		gen:   40,
-		cols:  30,
-		rows:  30,
+		cols:  50,
+		rows:  50,
 	}
 
 	activeCells, err := PatternFactory(pattern, config.rows, config.cols)

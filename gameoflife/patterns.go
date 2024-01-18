@@ -7,41 +7,42 @@ import (
 	"time"
 )
 
-type Patterns struct {
-	Blinker         []Point
-	Toad            []Point
-	Beacon          []Point
-	Glider          []Point
-	LWSS            []Point
-	Block           []Point
-	Beehive         []Point
-	Loaf            []Point
-	GosperGliderGun []Point
-	Random          []Point
-}
+// type Patterns struct {
+// 	Blinker         []Point
+// 	Toad            []Point
+// 	Beacon          []Point
+// 	Glider          []Point
+// 	LWSS            []Point
+// 	Block           []Point
+// 	Beehive         []Point
+// 	Loaf            []Point
+// 	GosperGliderGun []Point
+// 	Random          []Point
+// }
 
-var patternsMap = map[string][]Point{
-	"Blinker":         patterns.Blinker,
-	"Toad":            patterns.Toad,
-	"Beacon":          patterns.Beacon,
-	"Glider":          patterns.Glider,
-	"LWSS":            patterns.LWSS,
-	"Block":           patterns.Block,
-	"Beehive":         patterns.Beehive,
-	"Loaf":            patterns.Loaf,
-	"GosperGliderGun": patterns.GosperGliderGun,
-}
+const (
+	BLINKER           = "Blinker"
+	TOAD              = "Toad"
+	BEACON            = "Beacon"
+	GLIDER            = "Glider"
+	LWSS              = "LWSS"
+	BLOCK             = "Block"
+	BEEHIVE           = "Beehive"
+	LOAF              = "Loaf"
+	GOSPER_GLIDER_GUN = "GosperGliderGun"
+	RANDOM            = "Random"
+)
 
-var patterns = Patterns{
-	Blinker: []Point{{1, 2}, {2, 2}, {3, 2}},
-	Toad:    []Point{{2, 2}, {3, 2}, {4, 2}, {1, 3}, {2, 3}, {3, 3}},
-	Beacon:  []Point{{1, 1}, {2, 1}, {1, 2}, {4, 3}, {3, 4}, {4, 4}},
-	Glider:  []Point{{1, 0}, {2, 1}, {0, 2}, {1, 2}, {2, 2}},
-	LWSS:    []Point{{0, 1}, {3, 1}, {4, 1}, {1, 2}, {4, 2}, {2, 3}, {3, 3}, {4, 3}, {1, 4}, {2, 4}},
-	Block:   []Point{{1, 1}, {2, 1}, {1, 2}, {2, 2}},
-	Beehive: []Point{{2, 1}, {3, 1}, {1, 2}, {4, 2}, {2, 3}, {3, 3}},
-	Loaf:    []Point{{2, 1}, {3, 1}, {1, 2}, {4, 2}, {2, 3}, {4, 3}, {3, 4}},
-	GosperGliderGun: []Point{
+var patterns = map[string][]Point{
+	BLINKER: {{1, 2}, {2, 2}, {3, 2}},
+	TOAD:    {{2, 2}, {3, 2}, {4, 2}, {1, 3}, {2, 3}, {3, 3}},
+	BEACON:  {{1, 1}, {2, 1}, {1, 2}, {4, 3}, {3, 4}, {4, 4}},
+	GLIDER:  {{1, 0}, {2, 1}, {0, 2}, {1, 2}, {2, 2}},
+	LWSS:    {{0, 1}, {3, 1}, {4, 1}, {1, 2}, {4, 2}, {2, 3}, {3, 3}, {4, 3}, {1, 4}, {2, 4}},
+	BLOCK:   {{1, 1}, {2, 1}, {1, 2}, {2, 2}},
+	BEEHIVE: {{2, 1}, {3, 1}, {1, 2}, {4, 2}, {2, 3}, {3, 3}},
+	LOAF:    {{2, 1}, {3, 1}, {1, 2}, {4, 2}, {2, 3}, {4, 3}, {3, 4}},
+	GOSPER_GLIDER_GUN: {
 		{1, 5}, {1, 6}, {2, 5}, {2, 6},
 		{11, 5}, {11, 6}, {11, 7},
 		{12, 4}, {12, 8},
@@ -81,15 +82,14 @@ func generatePseudoRandomPattern(size int, rows int, cols int) []Point {
 
 func PatternFactory(pattern string, rows int, cols int) ([]Point, error) {
 	var patternKeys = []string{}
-	for k := range patternsMap {
+	for k := range patterns {
 		patternKeys = append(patternKeys, k)
 	}
-	patternKeys = append(patternKeys, "Random")
 
 	if pattern == "Random" {
 		return generatePseudoRandomPattern(rows*cols, rows, cols), nil
 	}
-	if found, ok := patternsMap[pattern]; !ok {
+	if found, ok := patterns[pattern]; !ok {
 
 		return nil, fmt.Errorf("invalid pattern '%s': allowed patterns'%s'", pattern, strings.Join(patternKeys, ","))
 	} else {
