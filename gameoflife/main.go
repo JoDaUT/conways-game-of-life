@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"os"
 	"time"
 )
 
@@ -29,13 +30,22 @@ type Config struct {
 
 func main() {
 
+	pattern := "Random"
+
 	config := Config{
-		delay:        100 * time.Millisecond,
-		gen:          500,
-		cols:         50,
-		rows:         50,
-		initialState: patterns.GosperGliderGun,
+		delay: 200 * time.Millisecond,
+		gen:   40,
+		cols:  30,
+		rows:  30,
 	}
+
+	activeCells, err := PatternFactory(pattern, config.rows, config.cols)
+	if err != nil {
+		fmt.Println(fmt.Errorf("error: %w", err))
+		os.Exit(1)
+	}
+
+	config.initialState = activeCells
 
 	matrix := createWorld(config.rows, config.cols, config.initialState)
 	temp := createWorld(config.rows, config.cols, []Point{})
@@ -118,7 +128,7 @@ func updateState(matrix [][]byte, temp [][]byte, rows int, cols int) {
 }
 
 func displayWorld(rows int, cols int, delay time.Duration, iteration int, matrix [][]byte) {
-	fmt.Printf("%dx%d, delay=%d, gen=%d\n", rows, cols, delay, iteration)
+	fmt.Printf("%dx%d, delay=%dms, gen=%d\n", rows, cols, delay/time.Millisecond, iteration)
 
 	for i := 0; i < rows; i++ {
 		for j := 0; j < cols; j++ {

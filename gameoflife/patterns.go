@@ -1,5 +1,12 @@
 package main
 
+import (
+	"fmt"
+	"math/rand"
+	"strings"
+	"time"
+)
+
 type Patterns struct {
 	Blinker         []Point
 	Toad            []Point
@@ -10,6 +17,19 @@ type Patterns struct {
 	Beehive         []Point
 	Loaf            []Point
 	GosperGliderGun []Point
+	Random          []Point
+}
+
+var patternsMap = map[string][]Point{
+	"Blinker":         patterns.Blinker,
+	"Toad":            patterns.Toad,
+	"Beacon":          patterns.Beacon,
+	"Glider":          patterns.Glider,
+	"LWSS":            patterns.LWSS,
+	"Block":           patterns.Block,
+	"Beehive":         patterns.Beehive,
+	"Loaf":            patterns.Loaf,
+	"GosperGliderGun": patterns.GosperGliderGun,
 }
 
 var patterns = Patterns{
@@ -38,4 +58,41 @@ var patterns = Patterns{
 		{35, 3}, {35, 4},
 		{36, 3}, {36, 4},
 	},
+}
+
+func generatePseudoRandomPattern(size int, rows int, cols int) []Point {
+	seed := rand.NewSource(time.Now().UnixNano())
+	random := rand.New(seed)
+
+	points := []Point{}
+
+	counter := 0
+
+	for i := 0; i < rows; i++ {
+		for j := 0; j < cols; j++ {
+			if counter <= size && random.Float64() > 0.5 {
+				points = append(points, Point{X: i, Y: j})
+			}
+			counter++
+		}
+	}
+	return points
+}
+
+func PatternFactory(pattern string, rows int, cols int) ([]Point, error) {
+	var patternKeys = []string{}
+	for k := range patternsMap {
+		patternKeys = append(patternKeys, k)
+	}
+	patternKeys = append(patternKeys, "Random")
+
+	if pattern == "Random" {
+		return generatePseudoRandomPattern(rows*cols, rows, cols), nil
+	}
+	if found, ok := patternsMap[pattern]; !ok {
+
+		return nil, fmt.Errorf("invalid pattern '%s': allowed patterns'%s'", pattern, strings.Join(patternKeys, ","))
+	} else {
+		return found, nil
+	}
 }
