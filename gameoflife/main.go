@@ -40,7 +40,7 @@ var (
 
 func main() {
 
-	flag.StringVar(&pattern, "pattern", "random", "default=Random")
+	flag.StringVar(&pattern, "pattern", "random", "allowed: blinker, toad, beacon, glider, lwss, block, beehive, loaf, gosperGliderGun, random")
 	flag.IntVar(&delay, "delay", 100, "delay to move to the next gen")
 	flag.IntVar(&cols, "cols", 40, "number of colums of the matrix")
 	flag.IntVar(&rows, "rows", 40, "number of rows of the matrix")
