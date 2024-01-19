@@ -2,7 +2,7 @@
 
 # Requirements
 
-Navigate to https://go.dev/doc/install and choose the installer depending on you operating system.
+Navigate to https://go.dev/doc/install and choose the installer based on your operating system.
 
 # How to build
 
