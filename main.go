@@ -118,10 +118,10 @@ func updateState(matrix [][]byte, temp [][]byte, rows int, cols int) {
 				isOn(temp, i+1, j) + //down
 				isOn(temp, i, j-1) + // left
 				isOn(temp, i, j+1) + // right
-				isOn(temp, i-1, j-1) + // left upper
-				isOn(temp, i-1, j+1) + // right upper
-				isOn(temp, i+1, j-1) + // left bottom
-				isOn(temp, i+1, j+1) //right bottom
+				isOn(temp, i-1, j-1) + // upper left
+				isOn(temp, i-1, j+1) + // upper right
+				isOn(temp, i+1, j-1) + // bottom left
+				isOn(temp, i+1, j+1) //bottom right
 
 			if isOn(temp, i, j) == 1 {
 				if n <= 1 || n >= 4 {
