@@ -91,7 +91,10 @@ func clearScreen() {
 	fmt.Printf("\x1bc")
 }
 
-func isOn(matrix [][]byte, x int, y int) int {
+func isOn(matrix [][]byte, x int, y int, rows int, cols int) int {
+	if x >= rows || y >= cols || x < 0 || y < 0 {
+		return 0
+	}
 	if matrix[x][y] == STATES.ON {
 		return 1
 	} else {
@@ -112,18 +115,18 @@ func duplicateWorld(source [][]byte, dest [][]byte) {
 func updateState(matrix [][]byte, temp [][]byte, rows int, cols int) {
 	n := 0
 	duplicateWorld(matrix, temp)
-	for i := 1; i < rows-1; i++ {
-		for j := 1; j < cols-1; j++ {
-			n = isOn(temp, i-1, j) + // up
-				isOn(temp, i+1, j) + //down
-				isOn(temp, i, j-1) + // left
-				isOn(temp, i, j+1) + // right
-				isOn(temp, i-1, j-1) + // upper left
-				isOn(temp, i-1, j+1) + // upper right
-				isOn(temp, i+1, j-1) + // bottom left
-				isOn(temp, i+1, j+1) //bottom right
+	for i := 1; i < rows; i++ {
+		for j := 1; j < cols; j++ {
+			n = isOn(temp, i-1, j, rows, cols) + // up
+				isOn(temp, i+1, j, rows, cols) + //down
+				isOn(temp, i, j-1, rows, cols) + // left
+				isOn(temp, i, j+1, rows, cols) + // right
+				isOn(temp, i-1, j-1, rows, cols) + // upper left
+				isOn(temp, i-1, j+1, rows, cols) + // upper right
+				isOn(temp, i+1, j-1, rows, cols) + // bottom left
+				isOn(temp, i+1, j+1, rows, cols) //bottom right
 
-			if isOn(temp, i, j) == 1 {
+			if isOn(temp, i, j, rows, cols) == 1 {
 				if n <= 1 || n >= 4 {
 					matrix[i][j] = STATES.OFF
 				}
