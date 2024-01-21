@@ -1,5 +1,21 @@
 # Conway's Game of Life in Go
 
+It is a famous cellular automaton proposed by the mathematician John Horton Conway in 1970. It requires no more interaction than the initial state of the game.
+
+
+
+The rules are really simple:
+
+- If a cell has less than two live neighbors, it dies of loneliness.
+
+- If a cell has two or three live neighbors, it lives on to the next generation.
+
+- If a cell has more than three live neighbors, it dies of overpopulation.
+
+
+
+With these pretty simple rules a lot of funny and interesting patterns have been found so far, e.g. blocks, beacon, glider, glider guns and space ships, just to mention the most famous ones.
+
 ## Requirements
 
 Download and install Go on your machine: https://go.dev/doc/install
