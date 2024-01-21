@@ -30,12 +30,17 @@ go build
 
 `./gameoflife -cols 50 -rows 40 -delay 200 -pattern random -gen 200`
 
-![random-pattern](https://github.com/JoDaUT/conways-game-of-life/assets/47344349/8443e8bc-92ea-4bad-8daa-93d82449f448)
+![random-pattern](https://github.com/JoDaUT/gameoflife/assets/47344349/f2ed6f41-bb74-48f4-ba50-002a91f11048)
+
 
 `./gameoflife -pattern gosperGliderGun -gen 200`
 
-![gosperGliderGun-pattern](https://github.com/JoDaUT/conways-game-of-life/assets/47344349/8a19a25a-aa39-410a-b743-da10a25cdf48)
+![gosperGliderGun-pattern](https://github.com/JoDaUT/gameoflife/assets/47344349/c151cebf-d9d3-416a-8c4c-bf1070a1cf99)
 
-`./gameoflife -pattern lwss -rows 8
 
-![lwss-pattern](https://github.com/JoDaUT/conways-game-of-life/assets/47344349/fc76ab66-da5c-4992-8f7a-b8063d7fd775)
+`./gameoflife -pattern lwss -rows 8`
+
+![lwss-pattern](https://github.com/JoDaUT/gameoflife/assets/47344349/d19221d2-8390-4dda-b646-25d0e728484d)
+
+
+
